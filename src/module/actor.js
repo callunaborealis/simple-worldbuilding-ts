@@ -1,6 +1,5 @@
 import { EntitySheetHelper } from './helper.js';
 
-import type { ActorDataDataShape, OwnGame } from '../types';
 /**
  * Extend the base Actor document to support attributes and groups with a custom template creation dialog.
  * @extends {Actor}
@@ -9,10 +8,9 @@ export class SimpleActor extends Actor {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    const prevDataData = this.data.data as ActorDataDataShape;
-    (this.data.data as ActorDataDataShape).groups = prevDataData.groups || {};
-    (this.data.data as ActorDataDataShape).attributes =
-      prevDataData.attributes || {};
+    const prevDataData = this.data.data;
+    this.data.data.groups = prevDataData.groups || {};
+    this.data.data.attributes = prevDataData.attributes || {};
   }
 
   /* -------------------------------------------- */
@@ -29,11 +27,8 @@ export class SimpleActor extends Actor {
   /** @inheritdoc */
   getRollData() {
     // Copy the actor's system data
-    const data = this.toObject(false).data as ActorDataDataShape;
-    const shorthand = (game as OwnGame).settings.get(
-      'worldbuilding',
-      'macroShorthand',
-    );
+    const data = this.toObject(false).data;
+    const shorthand = game.settings.get('worldbuilding', 'macroShorthand');
     const formulaAttributes = [];
     const itemAttributes = [];
 
@@ -67,7 +62,7 @@ export class SimpleActor extends Actor {
    * @param {Array} formulaAttributes Array of attributes that are derived formulas.
    * @param {Boolean} shorthand Whether or not the shorthand syntax is used.
    */
-  _applyShorthand(data: ActorDataDataShape, formulaAttributes, shorthand) {
+  _applyShorthand(data, formulaAttributes, shorthand) {
     // Handle formula attributes when the short syntax is disabled.
     for (let [k, v] of Object.entries(data.attributes || {})) {
       // Make an array of formula attributes for later reference.
@@ -101,7 +96,7 @@ export class SimpleActor extends Actor {
    * @param {string[]} itemAttributes
    * @param {Boolean} shorthand Whether or not the shorthand syntax is used.
    */
-  _applyItems(data: ActorDataDataShape, itemAttributes, shorthand) {
+  _applyItems(data, itemAttributes, shorthand) {
     // Map all items data using their slugified names
     data.items = this.items.reduce((obj, item) => {
       const key = item.name.slugify({ strict: true });
