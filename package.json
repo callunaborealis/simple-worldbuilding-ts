@@ -4,7 +4,8 @@
   "description": "git remote add origin https://github.com/callunaborealis/simple-worldbuilding-ts.git",
   "main": "src/module/simple.ts",
   "scripts": {
-    "build": "rm -rf build && rollup -c && sh dist.sh"
+    "build": "rm -rf build && rollup -c && sh dist.sh",
+    "release": "sh release.sh"
   },
   "repository": {
     "type": "git",

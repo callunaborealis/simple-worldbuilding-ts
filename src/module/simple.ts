@@ -4,7 +4,7 @@
  */
 
 // Import Modules
-import { SimpleActor } from './actor.js';
+import { SimpleActor } from './actor';
 import { GAME_NAME } from './constants';
 import { SimpleItem } from './item.js';
 import { SimpleItemSheet } from './item-sheet.js';
@@ -12,17 +12,11 @@ import { SimpleActorSheet } from './actor-sheet.js';
 import { preloadHandlebarsTemplates } from './templates.js';
 import { createWorldbuildingMacro } from './macro.js';
 
+import type { OwnGame } from '../types';
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
-
-type OwnGame = Game & {
-  // TODO: Add custom types for this game
-  [GAME_NAME]: {
-    createWorldbuildingMacro: typeof createWorldbuildingMacro;
-    SimpleActor: typeof SimpleActor;
-  };
-};
 
 /**
  * Init hook.

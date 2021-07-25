@@ -1,5 +1,6 @@
-import { EntitySheetHelper } from "./helper.js";
+import { EntitySheetHelper } from './helper.js';
 
+import type { ActorDataDataShape, OwnGame } from '../types';
 /**
  * Extend the base Actor document to support attributes and groups with a custom template creation dialog.
  * @extends {Actor}
@@ -8,8 +9,10 @@ export class SimpleActor extends Actor {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.data.data.groups = this.data.data.groups || {};
-    this.data.data.attributes = this.data.data.attributes || {};
+    const prevDataData = this.data.data as ActorDataDataShape;
+    (this.data.data as ActorDataDataShape).groups = prevDataData.groups || {};
+    (this.data.data as ActorDataDataShape).attributes =
+      prevDataData.attributes || {};
   }
 
   /* -------------------------------------------- */
@@ -26,8 +29,11 @@ export class SimpleActor extends Actor {
   /** @inheritdoc */
   getRollData() {
     // Copy the actor's system data
-    const data = this.toObject(false).data;
-    const shorthand = game.settings.get("worldbuilding", "macroShorthand");
+    const data = this.toObject(false).data as ActorDataDataShape;
+    const shorthand = (game as OwnGame).settings.get(
+      'worldbuilding',
+      'macroShorthand',
+    );
     const formulaAttributes = [];
     const itemAttributes = [];
 
@@ -61,11 +67,11 @@ export class SimpleActor extends Actor {
    * @param {Array} formulaAttributes Array of attributes that are derived formulas.
    * @param {Boolean} shorthand Whether or not the shorthand syntax is used.
    */
-  _applyShorthand(data, formulaAttributes, shorthand) {
+  _applyShorthand(data: ActorDataDataShape, formulaAttributes, shorthand) {
     // Handle formula attributes when the short syntax is disabled.
     for (let [k, v] of Object.entries(data.attributes || {})) {
       // Make an array of formula attributes for later reference.
-      if (v.dtype === "Formula") formulaAttributes.push(k);
+      if (v.dtype === 'Formula') formulaAttributes.push(k);
       // Add shortened version of the attributes.
       if (!!shorthand) {
         if (!(k in data)) {
@@ -78,7 +84,7 @@ export class SimpleActor extends Actor {
             data[k] = {};
             for (let [gk, gv] of Object.entries(v)) {
               data[k][gk] = gv.value;
-              if (gv.dtype === "Formula") formulaAttributes.push(`${k}.${gk}`);
+              if (gv.dtype === 'Formula') formulaAttributes.push(`${k}.${gk}`);
             }
           }
         }
@@ -95,7 +101,7 @@ export class SimpleActor extends Actor {
    * @param {string[]} itemAttributes
    * @param {Boolean} shorthand Whether or not the shorthand syntax is used.
    */
-  _applyItems(data, itemAttributes, shorthand) {
+  _applyItems(data: ActorDataDataShape, itemAttributes, shorthand) {
     // Map all items data using their slugified names
     data.items = this.items.reduce((obj, item) => {
       const key = item.name.slugify({ strict: true });
@@ -104,7 +110,7 @@ export class SimpleActor extends Actor {
       // Add items to shorthand and note which ones are formula attributes.
       for (let [k, v] of Object.entries(itemData.attributes)) {
         // When building the attribute list, prepend the item name for later use.
-        if (v.dtype === "Formula") itemAttributes.push(`${key}..${k}`);
+        if (v.dtype === 'Formula') itemAttributes.push(`${key}..${k}`);
         // Add shortened version of the attributes.
         if (!!shorthand) {
           if (!(k in itemData)) {
@@ -117,7 +123,7 @@ export class SimpleActor extends Actor {
               if (!itemData[k]) itemData[k] = {};
               for (let [gk, gv] of Object.entries(v)) {
                 itemData[k][gk] = gv.value;
-                if (gv.dtype === "Formula")
+                if (gv.dtype === 'Formula')
                   itemAttributes.push(`${key}..${k}.${gk}`);
               }
             }
@@ -129,7 +135,7 @@ export class SimpleActor extends Actor {
             if (!itemData[k]) itemData[k] = {};
             for (let [gk, gv] of Object.entries(v)) {
               itemData[k][gk] = gv.value;
-              if (gv.dtype === "Formula")
+              if (gv.dtype === 'Formula')
                 itemAttributes.push(`${key}..${k}.${gk}`);
             }
           }
@@ -151,52 +157,52 @@ export class SimpleActor extends Actor {
     for (let k of itemAttributes) {
       // Get the item name and separate the key.
       let item = null;
-      let itemKey = k.split("..");
+      let itemKey = k.split('..');
       item = itemKey[0];
       k = itemKey[1];
 
       // Handle group keys.
       let gk = null;
-      if (k.includes(".")) {
-        let attrKey = k.split(".");
+      if (k.includes('.')) {
+        let attrKey = k.split('.');
         k = attrKey[0];
         gk = attrKey[1];
       }
 
-      let formula = "";
+      let formula = '';
       if (!!shorthand) {
         // Handle grouped attributes first.
         if (data.items[item][k][gk]) {
           formula = data.items[item][k][gk].replace(
-            "@item.",
-            `@items.${item}.`
+            '@item.',
+            `@items.${item}.`,
           );
           data.items[item][k][gk] = Roll.replaceFormulaData(formula, data);
         }
         // Handle non-grouped attributes.
         else if (data.items[item][k]) {
-          formula = data.items[item][k].replace("@item.", `@items.${item}.`);
+          formula = data.items[item][k].replace('@item.', `@items.${item}.`);
           data.items[item][k] = Roll.replaceFormulaData(formula, data);
         }
       } else {
         // Handle grouped attributes first.
-        if (data.items[item]["attributes"][k][gk]) {
-          formula = data.items[item]["attributes"][k][gk]["value"].replace(
-            "@item.",
-            `@items.${item}.attributes.`
+        if (data.items[item]['attributes'][k][gk]) {
+          formula = data.items[item]['attributes'][k][gk]['value'].replace(
+            '@item.',
+            `@items.${item}.attributes.`,
           );
-          data.items[item]["attributes"][k][gk]["value"] =
+          data.items[item]['attributes'][k][gk]['value'] =
             Roll.replaceFormulaData(formula, data);
         }
         // Handle non-grouped attributes.
-        else if (data.items[item]["attributes"][k]["value"]) {
-          formula = data.items[item]["attributes"][k]["value"].replace(
-            "@item.",
-            `@items.${item}.attributes.`
+        else if (data.items[item]['attributes'][k]['value']) {
+          formula = data.items[item]['attributes'][k]['value'].replace(
+            '@item.',
+            `@items.${item}.attributes.`,
           );
-          data.items[item]["attributes"][k]["value"] = Roll.replaceFormulaData(
+          data.items[item]['attributes'][k]['value'] = Roll.replaceFormulaData(
             formula,
-            data
+            data,
           );
         }
       }
@@ -216,8 +222,8 @@ export class SimpleActor extends Actor {
     for (let k of formulaAttributes) {
       // Grouped attributes are included as `group.attr`, so we need to split them into new keys.
       let attr = null;
-      if (k.includes(".")) {
-        let attrKey = k.split(".");
+      if (k.includes('.')) {
+        let attrKey = k.split('.');
         k = attrKey[0];
         attr = attrKey[1];
       }
@@ -225,14 +231,14 @@ export class SimpleActor extends Actor {
       if (data.attributes[k]?.value) {
         data.attributes[k].value = Roll.replaceFormulaData(
           data.attributes[k].value,
-          data
+          data,
         );
       }
       // Grouped attributes.
       else if (attr) {
         data.attributes[k][attr].value = Roll.replaceFormulaData(
           data.attributes[k][attr].value,
-          data
+          data,
         );
       }
 

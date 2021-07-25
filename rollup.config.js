@@ -7,7 +7,7 @@ export default {
   input: 'src/module/simple.ts',
   output: {
     file: 'build/simple.js',
-    format: 'umd',
+    format: 'es',
     sourcemap: true,
   },
   plugins: [

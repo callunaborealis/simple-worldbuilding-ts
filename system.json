@@ -20,7 +20,7 @@
   "minimumCoreVersion": "0.8.8",
   "compatibleCoreVersion": "0.8.8",
   "url": "https://github.com/callunaborealis/simple-worldbuilding-ts.git",
-  "manifest": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/master/dist/system.json",
-  "download": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/master/dist/system.zip",
+  "manifest": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.json",
+  "download": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.zip",
   "license": "MIT"
 }
