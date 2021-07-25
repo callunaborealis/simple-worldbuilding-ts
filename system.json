@@ -1,0 +1,26 @@
+{
+  "name": "simple-worldbuilding-ts",
+  "title": "Simple Worldbuilding System",
+  "description": "An experimental unofficial Foundry virtual TTRPG game system for Simple Worldbuilder",
+  "version": "0.0.1",
+  "author": "callunaborealis",
+  "scripts": [],
+  "esmodules": ["simple.js"],
+  "styles": ["simple.css"],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "minimumCoreVersion": "0.8.8",
+  "compatibleCoreVersion": "0.8.8",
+  "url": "https://github.com/callunaborealis/simple-worldbuilding-ts.git",
+  "manifest": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/master/dist/system.json",
+  "download": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/master/dist/system.zip",
+  "license": "MIT"
+}

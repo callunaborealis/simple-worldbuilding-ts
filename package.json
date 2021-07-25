@@ -1,0 +1,39 @@
+{
+  "name": "simple-worldbuilding-ts",
+  "version": "0.0.1",
+  "description": "git remote add origin https://github.com/callunaborealis/simple-worldbuilding-ts.git",
+  "main": "src/module/simple.ts",
+  "scripts": {
+    "build": "rm -rf build && rollup -c && sh dist.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callunaborealis/simple-worldbuilding-ts.git"
+  },
+  "author": "callunaborealis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/callunaborealis/simple-worldbuilding-ts/issues"
+  },
+  "homepage": "https://github.com/callunaborealis/simple-worldbuilding-ts#readme",
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^0.8.8-8",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.2.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "autoprefixer": "^9.8.6",
+    "eslint": "^7.31.0",
+    "postcss": "^8.3.6",
+    "prettier": "2.3.2",
+    "rollup": "^2.53.3",
+    "rollup-plugin-postcss-modules": "^2.0.2",
+    "sass": "^1.36.0"
+  },
+  "browserslist": [
+    "last 3 versions"
+  ],
+  "dependencies": {
+    "typescript": "^4.3.5"
+  }
+}
