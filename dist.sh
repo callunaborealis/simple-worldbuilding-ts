@@ -4,4 +4,5 @@ rm -rf dist &&
   cp src/system.json dist/system.json &&
   # Ensure template.json is inside the system.zip source
   cp src/template.json build/template.json &&
-  zip -vr dist/system.zip build -x '*.git*' -x ".DS_Store" -x '*.ts*'
+  cd build &&
+  zip -vr ../dist/system.zip . -x ".DS_Store"

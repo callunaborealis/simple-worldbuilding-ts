@@ -5,7 +5,8 @@
   "main": "src/module/simple.ts",
   "scripts": {
     "build": "rm -rf build && rollup -c && sh dist.sh",
-    "release": "sh release.sh"
+    "release": "sh release.sh",
+    "update": "sh replace.sh"
   },
   "repository": {
     "type": "git",
