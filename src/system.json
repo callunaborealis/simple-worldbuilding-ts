@@ -1,13 +1,26 @@
 {
   "name": "simple-worldbuilding-ts",
-  "title": "Simple Worldbuilding System",
-  "description": "An experimental unofficial Foundry virtual TTRPG game system for Simple Worldbuilder",
-  "version": "0.0.1",
+  "title": "Simple Worldbuilding",
+  "description": "Unofficial game system for Simple Worldbuilding System For Foundry VTTRPG",
+  "version": "0.1.0",
+  "templateVersion": 2,
   "author": "callunaborealis",
-  "scripts": [],
-  "esmodules": ["simple.js"],
-  "styles": ["simple.css"],
-  "packs": [],
+  "scripts": ["scripts/system.js"],
+  "styles": ["system.css"],
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "My Monsters",
+      "path": "packs/monsters.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "items",
+      "label": "My Items",
+      "path": "packs/items.db",
+      "entity": "Item"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
@@ -15,12 +28,11 @@
       "path": "lang/en.json"
     }
   ],
-  "gridDistance": 1,
-  "gridUnits": "m",
-  "minimumCoreVersion": "0.8.8",
-  "compatibleCoreVersion": "0.8.8",
-  "url": "https://github.com/callunaborealis/simple-worldbuilding-ts.git",
-  "manifest": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.json",
-  "download": "https://raw.githubusercontent.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.zip",
-  "license": "MIT"
+  "socket": false,
+  "initiative": "1d20",
+  "gridDistance": 10,
+  "gridUnits": "ft",
+  "url": "https://github.com/callunaborealis/simple-worldbuilding-ts",
+  "manifest": "https://github.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.json",
+  "download": "https://github.com/callunaborealis/simple-worldbuilding-ts/releases/latest/download/system.zip"
 }

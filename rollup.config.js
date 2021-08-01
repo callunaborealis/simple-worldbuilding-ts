@@ -1,16 +1,20 @@
 import json from '@rollup/plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
 import autoprefixer from 'autoprefixer';
 import postcss from 'rollup-plugin-postcss-modules';
 import typescript from '@rollup/plugin-typescript';
 
 export default {
-  input: 'src/module/simple.ts',
+  input: 'src/scripts/system.ts',
   output: {
-    file: 'build/simple.js',
+    dir: 'build',
     format: 'es',
+    preserveModules: true, // Keep directory structure and files
+    preserveModulesRoot: 'src',
     sourcemap: true,
   },
   plugins: [
+    resolve({ browser: true }),
     postcss({
       extract: true,
       modules: {

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
