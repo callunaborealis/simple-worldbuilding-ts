@@ -4,8 +4,10 @@
   "description": "Unofficial game system for Simple Worldbuilding System For Foundry VTTRPG",
   "version": "0.1.0",
   "templateVersion": 2,
+  "minimumCoreVersion": "0.8.8",
+  "compatibleCoreVersion": "0.8.8",
   "author": "callunaborealis",
-  "scripts": ["scripts/system.js"],
+  "esmodules": ["scripts/system.js"],
   "styles": ["system.css"],
   "packs": [
     {
